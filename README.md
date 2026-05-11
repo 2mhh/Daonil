@@ -104,7 +104,7 @@
 backend/
 ├── src/main/java/com/sprint/daonil/
 │   ├── domain/                 # 🚀 핵심 비즈니스 로직
-│   │   ├── alarm/              # 실시간/비동기 알림 서비스
+│   │   ├── alarm/              # 비동기 알림 서비스
 │   │   ├── apply/              # 채용 지원 및 상태 관리
 │   │   ├── certificate/        # 자격증 정보 연동 및 관리
 │   │   ├── community/          # 게시판 및 커뮤니티 기능
