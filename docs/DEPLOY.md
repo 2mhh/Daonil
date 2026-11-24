@@ -20,6 +20,7 @@
 | `APP_UPLOAD_DIR` | 백엔드 | 업로드 파일 저장 폴더 (컨테이너는 `/data/uploads/`) | 이미지·첨부 저장 실패, 재배포하면 파일이 사라짐 |
 | `MYSQL_ROOT_PASSWORD`, `JWT_SECRET` | DB·백엔드 | 비밀 값 | — |
 | `KEAD_API_KEY`, `KEAD_SYNC_ENABLED`, `APP_JOB_EXPIRY_ENABLED` | 백엔드 | 공공 API 인증키, 동기화·만료 마감 스케줄러 켜기 | 외부 공고가 갱신되지 않음 |
+| `KEAD_SYNC_RUN_ON_STARTUP`, `KEAD_SYNC_CRON` | 백엔드 | 서버 시작 때 1회 즉시 실행 / 실행 시각(기본 매일 03:00) | 켜기만 하면 다음 새벽 3시에야 처음 채워짐 |
 
 - ⚠ `VITE_API_URL`은 **빌드할 때 번들에 박힙니다.** 값을 바꾸면 프론트를 **다시 빌드**해야 합니다. 비밀 값은 절대 넣지 마세요(브라우저에서 누구나 볼 수 있음).
 - 변수 목록과 예시는 `.env.example`(루트)과 `frontend/.env.example`에 있습니다.
