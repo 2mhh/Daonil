@@ -1,0 +1,12 @@
+﻿-> Limit: 12 row(s)  (actual time=186..186 rows=12 loops=1)
+    -> Sort: `ifnull(a.cnt,0)` DESC, jp.created_at DESC, limit input to 12 row(s) per chunk  (actual time=186..186 rows=12 loops=1)
+        -> Stream results  (cost=29.8e+6 rows=298e+6) (actual time=32.6..178 rows=21627 loops=1)
+            -> Nested loop left join  (cost=29.8e+6 rows=298e+6) (actual time=32.6..168 rows=21627 loops=1)
+                -> Nested loop inner join  (cost=3999 rows=14760) (actual time=0.257..103 rows=21627 loops=1)
+                    -> Index lookup on jp using idx_jp_open_created (is_closed=0), with index condition: ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate())))  (cost=1047 rows=14760) (actual time=0.248..54.7 rows=21627 loops=1)
+                    -> Single-row covering index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.25 rows=1) (actual time=0.00201..0.00203 rows=1 loops=21627)
+                -> Index lookup on a using <auto_key0> (job_posting_id=jp.job_posting_id)  (cost=10940..10942 rows=10) (actual time=0.00268..0.00281 rows=0.688 loops=21627)
+                    -> Materialize  (cost=10939..10939 rows=20205) (actual time=32.4..32.4 rows=20704 loops=1)
+                        -> Group aggregate: count(0)  (cost=8919 rows=20205) (actual time=0.52..12.1 rows=20704 loops=1)
+                            -> Covering index scan on application using FK_application_job_posting  (cost=4488 rows=44313) (actual time=0.482..8.24 rows=45000 loops=1)
+

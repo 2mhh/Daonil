@@ -1,0 +1,13 @@
+﻿-> Limit: 12 row(s)  (actual time=165..165 rows=12 loops=1)
+    -> Sort: `ifnull(a.cnt,0)` DESC, jp.created_at DESC, limit input to 12 row(s) per chunk  (actual time=165..165 rows=12 loops=1)
+        -> Stream results  (cost=2.4e+6 rows=24e+6) (actual time=43.6..157 rows=21627 loops=1)
+            -> Nested loop left join  (cost=2.4e+6 rows=24e+6) (actual time=43.6..146 rows=21627 loops=1)
+                -> Nested loop inner join  (cost=3355 rows=1186) (actual time=0.131..73.9 rows=21627 loops=1)
+                    -> Filter: ((jp.is_closed = 0) and ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate()))))  (cost=2940 rows=1186) (actual time=0.116..24 rows=21627 loops=1)
+                        -> Table scan on jp  (cost=2940 rows=29660) (actual time=0.109..16.4 rows=30000 loops=1)
+                    -> Single-row covering index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.25 rows=1) (actual time=0.00212..0.00215 rows=1 loops=21627)
+                -> Index lookup on a using <auto_key0> (job_posting_id=jp.job_posting_id)  (cost=10940..10942 rows=10) (actual time=0.00297..0.0031 rows=0.688 loops=21627)
+                    -> Materialize  (cost=10939..10939 rows=20205) (actual time=42.8..42.8 rows=20704 loops=1)
+                        -> Group aggregate: count(0)  (cost=8919 rows=20205) (actual time=0.518..11.8 rows=20704 loops=1)
+                            -> Covering index scan on application using FK_application_job_posting  (cost=4488 rows=44313) (actual time=0.483..8.08 rows=45000 loops=1)
+

@@ -1,0 +1,4 @@
+﻿-> Aggregate: count(0)  (cost=3059 rows=1) (actual time=16.3..16.3 rows=1 loops=1)
+    -> Filter: ((jp.is_closed = 0) and ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate()))))  (cost=2940 rows=1186) (actual time=0.0615..15 rows=21627 loops=1)
+        -> Table scan on jp  (cost=2940 rows=29660) (actual time=0.0546..10.8 rows=30000 loops=1)
+

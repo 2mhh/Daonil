@@ -1,0 +1,8 @@
+﻿-> Limit: 12 row(s)  (cost=6203 rows=12) (actual time=177..177 rows=0 loops=1)
+    -> Nested loop inner join  (cost=6203 rows=29660) (actual time=177..177 rows=0 loops=1)
+        -> Sort: jp.created_at DESC  (cost=2940 rows=29660) (actual time=104..117 rows=21627 loops=1)
+            -> Filter: ((jp.is_closed = 0) and ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate()))))  (cost=2940 rows=29660) (actual time=0.0286..42.4 rows=21627 loops=1)
+                -> Table scan on jp  (cost=2940 rows=29660) (actual time=0.024..37 rows=30000 loops=1)
+        -> Filter: ((jp.title like '%없는검색어zz%') or (jp.content like '%없는검색어zz%') or (c.company_name like '%없는검색어zz%'))  (cost=0.25 rows=1) (actual time=0.00266..0.00266 rows=0 loops=21627)
+            -> Single-row index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.25 rows=1) (actual time=0.00195..0.00197 rows=1 loops=21627)
+

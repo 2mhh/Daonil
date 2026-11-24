@@ -1,0 +1,7 @@
+﻿-> Limit: 12 row(s)  (cost=3113 rows=12) (actual time=0.112..0.723 rows=12 loops=1)
+    -> Nested loop inner join  (cost=3113 rows=5904) (actual time=0.111..0.721 rows=12 loops=1)
+        -> Filter: ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate())))  (cost=1047 rows=5904) (actual time=0.0311..0.437 rows=82 loops=1)
+            -> Index lookup on jp using idx_jp_open_created (is_closed=0) (reverse)  (cost=1047 rows=14760) (actual time=0.0274..0.411 rows=106 loops=1)
+        -> Filter: ((jp.title like '%데이터입력%') or (jp.content like '%데이터입력%') or (c.company_name like '%데이터입력%'))  (cost=0.25 rows=1) (actual time=0.00329..0.0033 rows=0.146 loops=82)
+            -> Single-row index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.25 rows=1) (actual time=0.00253..0.00256 rows=1 loops=82)
+

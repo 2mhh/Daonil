@@ -1,0 +1,7 @@
+﻿"query","median_ms","min_ms","max_ms","access","sort"
+"q1_list_default","23.5","22.3","31.5","TABLE SCAN","filesort"
+"q2_list_count","2.75","2.61","2.8","TABLE SCAN",""
+"q3_filter_cat_region","7.72","7.34","7.84","TABLE SCAN","filesort"
+"q4_keyword","24.2","23.3","25.4","TABLE SCAN","filesort"
+"q5_sort_applicants","27.5","27.1","28.5","INDEX","filesort"
+"q6_deep_page","32.1","30.2","33","TABLE SCAN","filesort"

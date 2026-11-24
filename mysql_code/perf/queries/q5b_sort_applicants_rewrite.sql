@@ -1,0 +1,2 @@
+-- 지원자순 재작성: 지원 건수를 먼저 job_posting_id별로 집계한 뒤 조인
+SELECT jp.job_posting_id FROM job_posting jp JOIN company c ON c.company_id = jp.company_id LEFT JOIN (SELECT job_posting_id, COUNT(*) cnt FROM application GROUP BY job_posting_id) a ON a.job_posting_id = jp.job_posting_id WHERE jp.is_closed = 0 AND (jp.application_end_date IS NULL OR jp.application_end_date >= CURDATE()) ORDER BY IFNULL(a.cnt, 0) DESC, jp.created_at DESC LIMIT 12;

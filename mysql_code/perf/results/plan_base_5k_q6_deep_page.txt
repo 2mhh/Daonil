@@ -1,0 +1,7 @@
+﻿-> Limit/Offset: 12/10000 row(s)  (cost=1036 rows=0) (actual time=33..33 rows=0 loops=1)
+    -> Nested loop inner join  (cost=1036 rows=4961) (actual time=23.7..32.8 rows=3637 loops=1)
+        -> Sort: jp.created_at DESC  (cost=491 rows=4961) (actual time=23.7..25.8 rows=3637 loops=1)
+            -> Filter: ((jp.is_closed = 0) and ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate()))))  (cost=491 rows=4961) (actual time=0.0314..7.39 rows=3637 loops=1)
+                -> Table scan on jp  (cost=491 rows=4961) (actual time=0.0252..6.46 rows=5000 loops=1)
+        -> Single-row index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.251 rows=1) (actual time=0.00175..0.00178 rows=1 loops=3637)
+

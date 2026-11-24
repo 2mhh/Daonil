@@ -1,0 +1,11 @@
+﻿-> Limit: 12 row(s)  (actual time=212..212 rows=12 loops=1)
+    -> Sort: `count(a.application_id)` DESC, jp.created_at DESC, limit input to 12 row(s) per chunk  (actual time=212..212 rows=12 loops=1)
+        -> Table scan on <temporary>  (actual time=206..208 rows=21627 loops=1)
+            -> Aggregate using temporary table  (actual time=206..206 rows=21627 loops=1)
+                -> Nested loop left join  (cost=5744 rows=12605) (actual time=0.244..169 rows=38821 loops=1)
+                    -> Nested loop inner join  (cost=3043 rows=5748) (actual time=0.236..109 rows=21627 loops=1)
+                        -> Filter: ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate())))  (cost=1032 rows=5748) (actual time=0.225..61.5 rows=21627 loops=1)
+                            -> Index lookup on jp using idx_jp_closed_created (is_closed=0)  (cost=1032 rows=14370) (actual time=0.221..55.8 rows=26996 loops=1)
+                        -> Single-row covering index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.25 rows=1) (actual time=0.00201..0.00203 rows=1 loops=21627)
+                    -> Covering index lookup on a using FK_application_job_posting (job_posting_id=jp.job_posting_id)  (cost=0.251 rows=2.19) (actual time=0.00195..0.00249 rows=1.48 loops=21627)
+

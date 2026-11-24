@@ -1,0 +1,7 @@
+﻿-> Limit: 12 row(s)  (cost=6086 rows=12) (actual time=44.3..44.3 rows=12 loops=1)
+    -> Nested loop inner join  (cost=6086 rows=29660) (actual time=44.3..44.3 rows=12 loops=1)
+        -> Sort: jp.created_at DESC  (cost=3116 rows=29660) (actual time=44.2..44.2 rows=12 loops=1)
+            -> Filter: ((jp.is_closed = 0) and ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate()))) and (jp.main_category = '사무 종사자') and (jp.work_region like '%서울%'))  (cost=3116 rows=29660) (actual time=0.119..43.8 rows=469 loops=1)
+                -> Table scan on jp  (cost=3116 rows=29660) (actual time=0.0344..37 rows=30000 loops=1)
+        -> Single-row index lookup on c using PRIMARY (company_id=jp.company_id)  (cost=0.258 rows=1) (actual time=0.00473..0.00475 rows=1 loops=12)
+

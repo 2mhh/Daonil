@@ -1,0 +1,4 @@
+﻿-> Aggregate: count(0)  (cost=1214 rows=1) (actual time=10.5..10.5 rows=1 loops=1)
+    -> Filter: ((jp.application_end_date is null) or (jp.application_end_date >= <cache>(curdate())))  (cost=623 rows=5904) (actual time=0.0967..9.35 rows=21627 loops=1)
+        -> Covering index lookup on jp using idx_jp_open_created (is_closed=0)  (cost=623 rows=14760) (actual time=0.0936..6.42 rows=26996 loops=1)
+
