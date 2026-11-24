@@ -1,0 +1,20 @@
+{
+  "base": "http://16.176.88.253:8080",
+  "scenario": "detail",
+  "seconds": 20,
+  "results": [
+    {
+      "concurrency": 100,
+      "requests": 8437,
+      "rps": 417,
+      "errorRate": 0,
+      "p50": 231,
+      "p95": 265,
+      "p99": 495,
+      "max": 611,
+      "codes": {
+        "200": 8437
+      }
+    }
+  ]
+}
