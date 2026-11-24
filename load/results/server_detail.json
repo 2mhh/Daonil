@@ -1,0 +1,59 @@
+{
+  "base": "http://16.176.88.253:8080",
+  "scenario": "detail",
+  "seconds": 15,
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 62,
+      "rps": 4.1,
+      "errorRate": 0,
+      "p50": 242,
+      "p95": 247,
+      "p99": 303,
+      "max": 303,
+      "codes": {
+        "200": 62
+      }
+    },
+    {
+      "concurrency": 10,
+      "requests": 624,
+      "rps": 41.1,
+      "errorRate": 0,
+      "p50": 238,
+      "p95": 250,
+      "p99": 478,
+      "max": 546,
+      "codes": {
+        "200": 624
+      }
+    },
+    {
+      "concurrency": 50,
+      "requests": 1591,
+      "rps": 102.9,
+      "errorRate": 0,
+      "p50": 471,
+      "p95": 602,
+      "p99": 720,
+      "max": 951,
+      "codes": {
+        "200": 1591
+      }
+    },
+    {
+      "concurrency": 100,
+      "requests": 1689,
+      "rps": 106.2,
+      "errorRate": 0,
+      "p50": 918,
+      "p95": 1020,
+      "p99": 1547,
+      "max": 1853,
+      "codes": {
+        "200": 1689
+      }
+    }
+  ]
+}

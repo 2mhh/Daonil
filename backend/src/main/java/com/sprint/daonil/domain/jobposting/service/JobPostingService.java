@@ -20,6 +20,11 @@ public class JobPostingService {
     private final JobPostingRepository jobPostingRepository;
     private final CompanyRepository companyRepository;
     private final com.sprint.daonil.domain.apply.repository.ApplicationRepository applicationRepository;
+    private final ViewCountBuffer viewCountBuffer;
+
+    /** true 면 조회수를 모아서 반영한다 (환경변수 APP_VIEW_COUNT_BUFFERED). 기본은 기존 동작. */
+    @org.springframework.beans.factory.annotation.Value("${app.view-count.buffered:false}")
+    private boolean bufferedViewCount;
 
     // 채용공고 목록 조회 (다중 필터 + 페이징)
     @Transactional(readOnly = true)
@@ -70,16 +75,27 @@ public class JobPostingService {
 
     // 채용공고 상세 조회 (조회수 증가 포함)
     public JobPostingResponseDto getJobPostingDetail(Long jobPostingId) {
-        // 1. DB 단에서 직접 조회수 증가 (동시성 문제 방지)
-        jobPostingRepository.incrementViewCount(jobPostingId);
+        // 1. 조회수 증가. 기본: 조회마다 DB 에서 직접 UPDATE (동시성 문제 방지, 같은 행 락 경합 있음)
+        //    app.view-count.buffered=true: 메모리에 모았다가 주기적으로 한 번에 반영 (락 경합 제거, docs/LOAD_TEST.md)
+        if (bufferedViewCount) {
+            viewCountBuffer.increment(jobPostingId);
+        } else {
+            jobPostingRepository.incrementViewCount(jobPostingId);
+        }
 
-        // 2. 증가된 상태의 엔티티 조회
+        // 2. 엔티티 조회
         JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
                 .orElseThrow(() -> new IllegalArgumentException("채용공고를 찾을 수 없습니다."));
 
         int count = applicationRepository.countByJobPosting_JobPostingId(jobPostingId);
 
-        return JobPostingResponseDto.fromEntity(jobPosting, count);
+        JobPostingResponseDto dto = JobPostingResponseDto.fromEntity(jobPosting, count);
+        if (bufferedViewCount) {
+            // DB 값 + 아직 반영 전인 값(이번 조회 포함)
+            int stored = jobPosting.getViewCount() == null ? 0 : jobPosting.getViewCount();
+            dto.setViewCount((int) (stored + viewCountBuffer.pendingOf(jobPostingId)));
+        }
+        return dto;
     }
 
     // 채용공고 등록 (Builder 패턴 적용)

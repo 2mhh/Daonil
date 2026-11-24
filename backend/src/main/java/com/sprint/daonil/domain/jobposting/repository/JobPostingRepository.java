@@ -85,6 +85,10 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
      * - DB에 직접 UPDATE 쿼리를 날려 동시성 문제를 방지하고 성능 최적화
      * - clearAutomatically = true: 업데이트 직후 영속성 컨텍스트(메모리)를 비워 최신 상태 유지
      */
+    @Modifying
+    @Query("UPDATE JobPosting jp SET jp.viewCount = jp.viewCount + :delta WHERE jp.jobPostingId = :jobPostingId")
+    int addViewCount(@Param("jobPostingId") Long jobPostingId, @Param("delta") long delta);
+
     @Modifying(clearAutomatically = true)
     @Query("UPDATE JobPosting jp SET jp.viewCount = jp.viewCount + 1 WHERE jp.jobPostingId = :jobPostingId")
     void incrementViewCount(@Param("jobPostingId") Long jobPostingId);

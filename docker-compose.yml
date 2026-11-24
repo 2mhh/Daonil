@@ -46,6 +46,7 @@ services:
       KEAD_SYNC_CRON: ${KEAD_SYNC_CRON:-0 0 3 * * *}               # 실행 시각 (서울 시간, 기본 매일 03:00)
       KEAD_SYNC_RUN_ON_STARTUP: ${KEAD_SYNC_RUN_ON_STARTUP:-false} # true: 서버가 시작될 때 1회 바로 실행 (처음 데이터를 채울 때)
       APP_JOB_EXPIRY_ENABLED: ${APP_JOB_EXPIRY_ENABLED:-false}
+      APP_VIEW_COUNT_BUFFERED: ${APP_VIEW_COUNT_BUFFERED:-false}  # true: 조회수를 모아서 반영 (같은 공고 조회 집중 시 락 경합 제거)
     volumes:
       - uploads_data:/data/uploads
     ports:

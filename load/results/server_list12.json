@@ -1,0 +1,72 @@
+{
+  "base": "http://16.176.88.253:8080",
+  "scenario": "list12",
+  "seconds": 15,
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 61,
+      "rps": 4.1,
+      "errorRate": 0,
+      "p50": 247,
+      "p95": 250,
+      "p99": 253,
+      "max": 253,
+      "codes": {
+        "200": 61
+      }
+    },
+    {
+      "concurrency": 10,
+      "requests": 559,
+      "rps": 36.7,
+      "errorRate": 0,
+      "p50": 253,
+      "p95": 311,
+      "p99": 774,
+      "max": 808,
+      "codes": {
+        "200": 559
+      }
+    },
+    {
+      "concurrency": 25,
+      "requests": 1388,
+      "rps": 91.1,
+      "errorRate": 0,
+      "p50": 260,
+      "p95": 304,
+      "p99": 732,
+      "max": 822,
+      "codes": {
+        "200": 1388
+      }
+    },
+    {
+      "concurrency": 50,
+      "requests": 2274,
+      "rps": 146.6,
+      "errorRate": 0,
+      "p50": 322,
+      "p95": 402,
+      "p99": 727,
+      "max": 923,
+      "codes": {
+        "200": 2274
+      }
+    },
+    {
+      "concurrency": 100,
+      "requests": 2325,
+      "rps": 147.6,
+      "errorRate": 0,
+      "p50": 602,
+      "p95": 1200,
+      "p99": 1436,
+      "max": 1993,
+      "codes": {
+        "200": 2325
+      }
+    }
+  ]
+}
