@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import CompanySidebar from "../components/company/CompanySidebar";
 import CompanyProfileCard from "../components/company/CompanyProfileCard";
-import CompanyMypageContent from "../components/Company/CompanyMypageContent";
+import CompanyMypageContent from "../components/company/CompanyMypageContent";
 
 export default function CompanyMypage() {
   const [profileReloadKey, setProfileReloadKey] = useState(0);

@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import CompanySidebar from "../components/company/CompanySidebar";
 import CompanyProfileCard from "../components/company/CompanyProfileCard";
-import CompanyJobpostManageContent from "../components/company/CompanyJobPostManageContent";
+import CompanyJobpostManageContent from "../components/company/CompanyJobpostManageContent";
 
 export default function CompanyJobPostManage() {
   return (
