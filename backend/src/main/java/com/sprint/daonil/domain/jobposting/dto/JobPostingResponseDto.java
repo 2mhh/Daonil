@@ -42,6 +42,10 @@ public class JobPostingResponseDto {
 
     private Integer applicantCount;
 
+    /** 공고 출처(INTERNAL / KEAD_JOB2 …)와 외부 공고의 문의처 */
+    private String source;
+    private String externalContact;
+
     public static JobPostingResponseDto fromEntity(JobPosting jobPosting) {
         return fromEntity(jobPosting, 0);
     }
@@ -75,6 +79,8 @@ public class JobPostingResponseDto {
                 .envLstnTalk(jobPosting.getEnvLstnTalk())
                 .envStndWalk(jobPosting.getEnvStndWalk())
                 .applicantCount(applicantCount)
+                .source(jobPosting.getSource())
+                .externalContact(jobPosting.getExternalContact())
                 .build();
     }
 }

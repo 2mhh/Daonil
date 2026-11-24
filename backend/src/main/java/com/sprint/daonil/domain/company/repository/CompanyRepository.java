@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     boolean existsByBusinessNumber(String businessNumber);
 
+    Optional<Company> findFirstByBusinessNumber(String businessNumber);
+
     @EntityGraph(attributePaths = {"member"})
     Optional<Company> findByMember_LoginId(String loginId);
 

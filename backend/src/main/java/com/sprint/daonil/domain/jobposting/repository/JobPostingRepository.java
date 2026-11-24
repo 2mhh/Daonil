@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
@@ -99,6 +100,9 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
 
 
 
+
+    /** 외부 출처 공고를 (출처, 식별키)로 조회 */
+    Optional<JobPosting> findBySourceAndExternalId(String source, String externalId);
 
     // ----------추후 구현 --------------
     // 기업 아이디별 공고 조회 / 일괄 마감 처리 / 검색 성능 최적화용 N+1 문제 해결 (@EntityGraph)

@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @Builder
 public class JobPosting {
 
+    public static final String SOURCE_INTERNAL = "INTERNAL";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_posting_id")
@@ -96,6 +98,19 @@ public class JobPosting {
     @Column(name = "env_stnd_walk", length = 50)
     private String envStndWalk;
 
+    /** 공고 출처: INTERNAL(기업 회원이 등록) / KEAD_JOB2(한국장애인고용공단 API) 등 */
+    @Builder.Default
+    @Column(name = "source", nullable = false, length = 30)
+    private String source = SOURCE_INTERNAL;
+
+    /** 외부 출처 공고의 식별키 (내부 공고는 null) */
+    @Column(name = "external_id", length = 64, columnDefinition = "CHAR(64)")
+    private String externalId;
+
+    /** 외부 출처 공고의 문의처 (지사명·전화) */
+    @Column(name = "external_contact", length = 100)
+    private String externalContact;
+
 
 
     public void update(JobPostingRequestDto requestDto) {
@@ -125,6 +140,18 @@ public class JobPosting {
 
     public void close() {
         this.isClosed = true;
+    }
+
+    /** 외부 API 출처 공고인가 (수정·마감·앱 내 지원 대상이 아님) */
+    public boolean isExternal() {
+        return source != null && !SOURCE_INTERNAL.equals(source);
+    }
+
+    /** 외부 출처 정보 지정 */
+    public void assignExternal(String source, String externalId, String externalContact) {
+        this.source = source;
+        this.externalId = externalId;
+        this.externalContact = externalContact;
     }
 
 

@@ -36,7 +36,7 @@ public class Company {
     @Column(name = "address", length = 255)
     private String address;
 
-    @Column(name = "company_name", length = 30)
+    @Column(name = "company_name", length = 100)
     private String companyName;
 
     @Column(name = "company_email", length = 100)

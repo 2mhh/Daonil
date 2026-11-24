@@ -122,6 +122,10 @@ public class JobPostingService {
 
     // 작성 기업 권한 검증 공통 로직
     private void validateCompanyAccess(JobPosting jobPosting, String loginId) {
+        // 외부 API 출처 공고는 시스템 계정 소유이며 수정·마감할 수 없다 (이중 방어: 계정은 로그인 불가)
+        if (jobPosting.isExternal()) {
+            throw new IllegalArgumentException("외부 출처 공고는 수정하거나 마감할 수 없습니다.");
+        }
         if (!jobPosting.getCompany().getMember().getLoginId().equals(loginId)) {
             throw new IllegalArgumentException("해당 채용공고에 대한 권한이 없습니다.");
         }
