@@ -1,3 +1,5 @@
+import { API_BASE_URL } from '../../config';
+
 export default function ApplicantDetail({ applicant, onChangeStatus, isJobClosed = false }) {
     if (!applicant) {
         return (
@@ -67,7 +69,7 @@ export default function ApplicantDetail({ applicant, onChangeStatus, isJobClosed
                                     src={
                                         applicant.userPhoto.startsWith('http') 
                                         ? applicant.userPhoto 
-                                        : `http://localhost:8080${applicant.userPhoto.startsWith('/') ? '' : '/'}${applicant.userPhoto}`
+                                        : `${API_BASE_URL}${applicant.userPhoto.startsWith('/') ? '' : '/'}${applicant.userPhoto}`
                                     } 
                                     alt={applicant.name} 
                                     className="w-full h-full object-cover"

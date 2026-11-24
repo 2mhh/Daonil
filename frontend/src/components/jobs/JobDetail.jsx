@@ -3,8 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import { jobPostingApi } from '../../api/jobPostingApi';
 import defaultUserPhoto from '../../assets/images/resume/defalut_userPhoto.jpeg';
 import { CERTIFICATE_OPTIONS } from '../../constants/certificateOptions';
+import { API_BASE_URL } from '../../config';
 
-const RESUME_API_BASE = 'http://localhost:8080';
+const RESUME_API_BASE = API_BASE_URL;
 
 const getAccessToken = () =>
     localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');

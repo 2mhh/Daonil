@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { apiUrl } from '../config';
 
 /**
  * OAuth2 회원가입 완료 페이지
@@ -44,7 +45,7 @@ const OAuth2CompleteRegistration = () => {
       const token = localStorage.getItem('authToken');
 
       const response = await axios.post(
-        'http://localhost:8080/members/complete-registration',
+        apiUrl('/members/complete-registration'),
         {
           role: formData.role,
           phoneNumber: formData.phoneNumber || null,

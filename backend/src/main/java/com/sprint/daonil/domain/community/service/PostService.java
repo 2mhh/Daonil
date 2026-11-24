@@ -29,6 +29,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final LikeRepository likeRepository;
+    private final com.sprint.daonil.config.UploadProperties uploadProperties;
 
 
     // 전체 조회( (카테고리 필터 + 페이징 + 댓글 수 포함 + 최신순 정렬)
@@ -259,7 +260,7 @@ public class PostService {
             }
 
             // 저장 경로
-            String baseDir = "C:/daonil/" + type + "/"; // 기본 저장 루트 + 타입별 폴더
+            String baseDir = uploadProperties.baseDir() + type + "/"; // 저장 루트(환경변수 APP_UPLOAD_DIR) + 타입별 폴더
             String userDirPath = baseDir + userId + "/"; // 유저별 폴더
             File userDir = new File(userDirPath);
 

@@ -35,6 +35,7 @@ public class ResumeService {
     private final DisabilityRepository disabilityRepository;
     private final QualificationRepository qualificationRepository;
     private final ProfileRepository profileRepository;
+    private final com.sprint.daonil.config.UploadProperties uploadProperties;
 
     // 이력서 목록 조회
     @Transactional(readOnly = true)
@@ -330,7 +331,7 @@ public class ResumeService {
     private String saveImage(Long userId, MultipartFile file) {
         try {
             // 저장 경로
-            String baseDir = "C:/daonil/userPhoto/"; // 기본 저장 루트
+            String baseDir = uploadProperties.baseDir() + "userPhoto/"; // 저장 루트(환경변수 APP_UPLOAD_DIR) + 프로필 사진 폴더
             String userDirPath = baseDir + userId + "/"; // // 유저별 폴더
             File userDir = new File(userDirPath);
 

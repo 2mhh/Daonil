@@ -15,6 +15,10 @@ import java.io.IOException;
 @Component
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    /** 로그인 실패 후 돌아갈 프론트엔드 주소. 환경변수 APP_FRONTEND_URL (기본 http://localhost:5173) */
+    @org.springframework.beans.factory.annotation.Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
@@ -30,7 +34,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
         log.error("OAuth2 인증 실패: {}", errorMessage, exception);
 
         // 프론트엔드로 에러 메시지와 함께 리다이렉트
-        this.setDefaultFailureUrl("http://localhost:5173/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+        this.setDefaultFailureUrl(frontendUrl.replaceAll("/+$", "") + "/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
 
         super.onAuthenticationFailure(request, response, exception);
     }

@@ -1,8 +1,9 @@
 // JWT를 이용한 API 요청 가이드
+import { apiUrl } from '../config';
 
 // 1. 로그인 후 토큰 저장
 async function login(loginId, password) {
-  const response = await fetch('http://localhost:8080/members/login', {
+  const response = await fetch(apiUrl('/members/login'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ async function getCurrentUser() {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/members/me', {
+    const response = await fetch(apiUrl('/members/me'), {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -111,7 +112,7 @@ if (userInfo) {
 
 // 토큰과 함께 다른 API 요청
 try {
-  const jobData = await fetchWithToken('http://localhost:8080/api/jobs', {
+  const jobData = await fetchWithToken(apiUrl('/api/jobs'), {
     method: 'GET',
   });
   console.log('채용공고:', jobData);

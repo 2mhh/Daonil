@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CERTIFICATE_OPTIONS } from "../constants/certificateOptions";
 import api from "../api/axios";
+import { API_BASE_URL } from "../config";
 
 const emptyResume = {
   title: "",
@@ -24,7 +25,7 @@ const emptyResume = {
   languages: [],
 };
 
-const API_BASE = "http://localhost:8080";
+const API_BASE = API_BASE_URL;
 
 function formatDateForInput(value) {
   if (value == null || value === "") return "";

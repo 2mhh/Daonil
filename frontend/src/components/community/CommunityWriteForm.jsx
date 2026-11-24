@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../api/axios";
+import { API_BASE_URL } from "../../config";
 
 function normalizeCategory(category) {
   if (category === "취업정보게시판") return "취업정보게시판";
@@ -12,7 +13,7 @@ const MAX_UPLOAD_BYTES = 50 * 1024 * 1024; // 50MB
 function toAbsoluteUrl(path) {
   if (!path) return "";
   if (/^https?:\/\//i.test(path)) return path;
-  const base = (api.defaults.baseURL || "http://localhost:8080").replace(/\/$/, "");
+  const base = (api.defaults.baseURL || API_BASE_URL).replace(/\/$/, "");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 

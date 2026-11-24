@@ -4,13 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
 import ReportModal from "../ReportModal";
 import api from "../../api/axios";
+import { API_BASE_URL } from "../../config";
 
 const COMMENT_MAX_LEN = 500;
 
 const API_ORIGIN =
   typeof api.defaults.baseURL === "string" && api.defaults.baseURL
     ? api.defaults.baseURL.replace(/\/$/, "")
-    : "http://localhost:8080";
+    : API_BASE_URL;
 
 function toAbsoluteUploadUrl(path) {
   if (!path) return null;

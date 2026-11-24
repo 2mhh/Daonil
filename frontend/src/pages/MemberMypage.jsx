@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import MemberSidebar from "../components/membermypage/MemberSidebar";
 import MemberMypageBody from "../components/membermypage/MemberMypageBody";
 import defaultUserPhoto from "../assets/images/resume/defalut_userPhoto.jpeg";
+import { API_BASE_URL } from "../config";
 
 async function extractErrorMessage(response, fallbackMessage) {
     try {
@@ -23,8 +24,8 @@ function getAccessToken() {
     return localStorage.getItem("authToken") || localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
 }
 
-const JOB_API_BASE = "http://localhost:8080";
-const RESUME_API_BASE = "http://localhost:8080";
+const JOB_API_BASE = API_BASE_URL;
+const RESUME_API_BASE = API_BASE_URL;
 
 // 이력서 관리 섹션 - ResumeList 페이지로 이동하는 런처패드
 function ResumeSection() {

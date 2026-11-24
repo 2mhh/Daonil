@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
 import './index.css'
+import './setupApi' // 상대 경로 API 호출에 VITE_API_URL 적용 (다른 import 보다 먼저 실행되어야 한다)
 import App from './App.jsx'
 
 

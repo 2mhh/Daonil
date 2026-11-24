@@ -35,6 +35,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Autowired
     private JwtUtil jwtUtil;
 
+    /** 로그인 후 돌아갈 프론트엔드 주소. 환경변수 APP_FRONTEND_URL (기본 http://localhost:5173) */
+    @org.springframework.beans.factory.annotation.Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
+
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -132,7 +136,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
             // 리다이렉트 URL 생성 (프론트엔드로 토큰 전달)
             // ✅ 한글 문제 완전 해결: name은 제거 (JWT 안에 포함됨)
-            String redirectUrl = UriComponentsBuilder.fromUriString("http://localhost:5173/oauth2/callback")
+            String redirectUrl = UriComponentsBuilder.fromUriString(frontendUrl.replaceAll("/+$", "") + "/oauth2/callback")
                     .queryParam("token", token)
                     .queryParam("memberId", member.getMemberId())
                     .queryParam("loginId", member.getLoginId())
@@ -152,7 +156,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             e.printStackTrace();  // 콘솔에 전체 스택 트레이스 출력
             String errorMessage = e.getMessage() != null ? e.getMessage() : "Unknown error";
             try {
-                response.sendRedirect("http://localhost:5173/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
+                response.sendRedirect(frontendUrl.replaceAll("/+$", "") + "/login?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             } catch (Exception redirectErr) {
                 log.error("리다이렉트 실패: ", redirectErr);
             }

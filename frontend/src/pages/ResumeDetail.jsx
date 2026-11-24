@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import defaultUserPhoto from "../assets/images/resume/defalut_userPhoto.jpeg";
+import { API_BASE_URL } from "../config";
 
 export default function ResumeDetail() {
   const { id } = useParams();
@@ -125,7 +126,7 @@ export default function ResumeDetail() {
         <div className="bg-gradient-to-r from-[#5D4037] to-[#8D6E63] px-8 py-8 text-white">
           <div className="flex items-center gap-6">
             <img
-              src={resume.userPhoto ? `http://localhost:8080${resume.userPhoto}` : defaultUserPhoto}
+              src={resume.userPhoto ? `${API_BASE_URL}${resume.userPhoto}` : defaultUserPhoto}
               alt="프로필 사진"
               className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
               onError={(e) => {

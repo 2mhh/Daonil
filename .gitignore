@@ -10,3 +10,8 @@ gen
 node_modules
 
 /backend/src/main/resources/application.properties
+
+# 환경변수 파일 (비밀 값이 들어간다). 예시 파일(.env.example)만 커밋한다
+.env
+.env.*
+!.env.example

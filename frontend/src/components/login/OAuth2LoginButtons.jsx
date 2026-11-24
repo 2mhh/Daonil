@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { apiUrl } from '../../config';
 
 /**
  * OAuth2 로그인/회원가입 버튼 컴포넌트
@@ -21,12 +22,12 @@ const OAuth2LoginButtons = ({ mode = 'login' }) => {
 
   const handleGoogleLogin = () => {
     console.log('Google ' + (mode === 'signup' ? '회원가입' : '로그인') + ' 시작...');
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    window.location.href = apiUrl('/oauth2/authorization/google');
   };
 
   const handleNaverLogin = () => {
     console.log('Naver ' + (mode === 'signup' ? '회원가입' : '로그인') + ' 시작...');
-    window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+    window.location.href = apiUrl('/oauth2/authorization/naver');
   };
 
   const googleText = mode === 'signup' ? 'Google 계정으로 회원가입' : 'Google 계정으로 로그인';
