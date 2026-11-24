@@ -29,4 +29,21 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     // 공고별 지원자 수 조회
     int countByJobPosting_JobPostingId(Long jobPostingId);
 
+    // 여러 공고의 지원자 수를 한 번에 집계 (목록 조회의 N+1 제거). 지원자가 없는 공고는 결과에 나오지 않는다.
+    @org.springframework.data.jpa.repository.Query("SELECT a.jobPosting.jobPostingId, COUNT(a) FROM Application a " +
+           "WHERE a.jobPosting.jobPostingId IN :ids GROUP BY a.jobPosting.jobPostingId")
+    java.util.List<Object[]> countGroupedByJobPostingIds(@org.springframework.data.repository.query.Param("ids") java.util.Collection<Long> ids);
+
+    /** 공고 id → 지원자 수. 지원자가 없는 공고는 0 으로 채우지 않으므로 조회하는 쪽에서 getOrDefault(id, 0) 로 읽는다. */
+    default java.util.Map<Long, Integer> countsByJobPostingIds(java.util.Collection<Long> ids) {
+        if (ids.isEmpty()) {
+            return java.util.Map.of();
+        }
+        java.util.Map<Long, Integer> counts = new java.util.HashMap<>();
+        for (Object[] row : countGroupedByJobPostingIds(ids)) {
+            counts.put((Long) row[0], ((Number) row[1]).intValue());
+        }
+        return counts;
+    }
+
 }

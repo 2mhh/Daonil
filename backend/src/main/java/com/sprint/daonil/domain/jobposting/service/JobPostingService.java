@@ -57,20 +57,20 @@ public class JobPostingService {
                     false, sortedPageable);
         }
 
-        return result.map(job -> {
-            int count = applicationRepository.countByJobPosting_JobPostingId(job.getJobPostingId());
-            return JobPostingResponseDto.fromEntity(job, count);
-        });
+        return toDtoPage(result);
+    }
+
+    /** 페이지의 공고들의 지원자 수를 쿼리 1번으로 구해 DTO 로 변환한다 (공고마다 따로 세던 N+1 제거). */
+    private Page<JobPostingResponseDto> toDtoPage(Page<JobPosting> page) {
+        java.util.Map<Long, Integer> counts = applicationRepository.countsByJobPostingIds(
+                page.getContent().stream().map(JobPosting::getJobPostingId).toList());
+        return page.map(job -> JobPostingResponseDto.fromEntity(job, counts.getOrDefault(job.getJobPostingId(), 0)));
     }
 
     // 특정 회사 채용공고 목록 조회
     @Transactional(readOnly = true)
     public Page<JobPostingResponseDto> getJobPostingsByCompanyId(String loginId, Pageable pageable) {
-        return jobPostingRepository.findByCompany_Member_LoginId(loginId, pageable)
-                .map(job -> {
-                    int count = applicationRepository.countByJobPosting_JobPostingId(job.getJobPostingId());
-                    return JobPostingResponseDto.fromEntity(job, count);
-                });
+        return toDtoPage(jobPostingRepository.findByCompany_Member_LoginId(loginId, pageable));
     }
 
     // 채용공고 상세 조회 (조회수 증가 포함)
